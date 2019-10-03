@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h3>Checklist</h3>
+<button type="button" id="createButton">create new checklist</button> <br>
+<label>search for created checklist: </label><input type="text" name="checklistSearch">
+
+<script>
+    document.getElementById("createButton").addEventListener("click", function(){
+        var createForm = document.createElement("form");
+        createForm.setAttribute('action', "/createPost");
+        createForm.setAttribute('method', "post");
+        createForm.innerHTML = `<label>Name of checklist: </label><input name="checklistName" type="text"><br><label>Password: </label><input name="password" type="password"><br><input type="submit" value="Create">`
+        document.getElementById("createButton").insertAdjacentElement("afterend", createForm);
+    }); 
+</script>
+{% endblock %}
