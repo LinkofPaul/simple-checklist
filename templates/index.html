@@ -3,26 +3,8 @@
 {% block body %}
 <button type="button" id="createButton">create new checklist</button> <br>
 <div id="formDiv" style="display: none;"></div>
-<label>search for created checklist: </label><input type="text" name="checklistSearch">
-
-<script>
-    var createForm = document.createElement("form");
-    createForm.setAttribute('action', "/setup");
-    createForm.setAttribute('method', "post");
-    createForm.innerHTML = `
-        <label>Name of checklist: </label><input name="name" type="text" required> <br>
-        <label>Password: </label><input name="password" type="password" required> <br> 
-        <input type="submit" value="Create">
-        `
-    document.getElementById("createButton").addEventListener("click", function(){
-        var fromDivEl = document.getElementById("formDiv")
-        if (fromDivEl.style.display === "none") {
-            fromDivEl.insertAdjacentElement('afterbegin', createForm);
-            fromDivEl.style.display = "block";
-        } else {
-            fromDivEl.style.display = "none";
-            fromDivEl.removeChild(createForm)
-        }
-    }); 
-</script>
+<form action="/search" id="searchForm" method="post">
+<label>search for created checklist: </label><input type="text" name="search_text" id="search_text_id">
+</form>
+<div id="searchReplyField"></div>
 {% endblock %}

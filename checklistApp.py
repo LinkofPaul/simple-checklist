@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, abort
+from flask import Flask, render_template, request, redirect, url_for, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from passlib.hash import sha256_crypt
 
@@ -44,6 +44,25 @@ def setup():
         db.session.add(checklist)
         db.session.commit()
         return redirect(url_for("checklist", name=checklist_name))
+
+@app.route("/search", methods=["POST"])
+def search():
+    search_text = request.form.get('search_text')
+    valid_checklists = Checklist.query.filter(Checklist.name.startswith(search_text)).all()
+    name_array = []
+    for checklist in valid_checklists:
+        name_array.append(checklist.name)
+    return jsonify(names=name_array,names_length=len(name_array))
+
+@app.route("/login", methods=["POST"])
+def login():
+    checklist_name = request.form.get('checklist_name')
+    checklist = Checklist.query.filter_by(name=checklist_name).first()
+    if checklist.check_password(request.form.get('password')):
+        return redirect(url_for("checklist", name=checklist_name))
+    else:
+        # TODO
+        return f'Wrong password'
 
 if __name__ == '__main__':
     app.run(debug=True)
