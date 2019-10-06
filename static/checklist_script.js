@@ -1,9 +1,11 @@
 var createForm = document.createElement("form");
 createForm.setAttribute('action', "/setup");
 createForm.setAttribute('method', "post");
+createForm.setAttribute('id', "createForm");
 createForm.innerHTML = `
-    <label>Name of checklist: </label><input name="name" type="text" required> <br>
-    <label>Password: </label><input name="password" type="password" required> <br> 
+    <label>Name of checklist: </label><input name="name" id="createNameId" type="text" required> <br>
+    <label>Password: </label><input name="password" id="createPasswordId" type="password" required> <br>
+    <div id="nameTakenDiv" style="display: none; color:red">Name already taken</div>
     <input type="submit" value="Create">
     `
 document.getElementById("createButton").addEventListener("click", function(){
@@ -17,10 +19,32 @@ document.getElementById("createButton").addEventListener("click", function(){
     }
 });
 
+$(document).on('submit', '#createForm', function(event){
+    $.ajax({
+        data : {
+            name : $('#createNameId').val(),
+            password : $('#createPasswordId').val()
+        },
+        type : 'POST',
+        url : '/setup'
+    })
+    .done(function(data){
+        if (data.error){
+            document.getElementById("nameTakenDiv").style.display = "block"
+            document.getElementById('createNameId').value = "";
+            document.getElementById('createPasswordId').value = "";
+        } else {
+            document.getElementById("nameTakenDiv").style.display = "none"
+            window.location.replace(data.redirectURL)
+        }
+    })
+    event.preventDefault();
+})
+
 $(document).on('keyup', '#search_text_id', function(event){
     $.ajax({
         data : {
-            search_text : $(search_text_id).val()
+            search_text : $('#search_text_id').val()
         },
         type : 'POST',
         url : '/search'
@@ -37,11 +61,14 @@ $(document).on('keyup', '#search_text_id', function(event){
             listForm = document.createElement("form");
             listForm.setAttribute('action', "/login");
             listForm.setAttribute('method', "post");
+            listForm.setAttribute('id', "loginForm");
             listIteam.appendChild(listForm)
 
             name_input = document.createElement("input");
             name_input.setAttribute('type', 'hidden')
             name_input.setAttribute('name', 'checklist_name')
+            idAtt = "checklistIdfor" + data.names[i]
+            name_input.setAttribute('id', idAtt)
             name_input.setAttribute('value', data.names[i])
             listForm.appendChild(name_input)
 
@@ -55,11 +82,47 @@ $(document).on('keyup', '#search_text_id', function(event){
             pass_div = document.createElement("div");
             pass_div.setAttribute('id', data.names[i]);
             pass_div.setAttribute('style', "display:none");
-            pass_div.innerHTML = `<label>Password: </label><input type="password" name="password" required>
+            passAtt = "passIdfor" + data.names[i]
+            pass_div.innerHTML = `<label>Password: </label><input type="password" id="`
+                                    + passAtt + `" name="password" required>
                                   <input type="submit" value="open">`
             listForm.appendChild(pass_div)
+
+            wrongpass_div = document.createElement("div");
+            errorLoginDiv = "errorLoginDivfor" + data.names[i]
+            wrongpass_div.setAttribute('id', errorLoginDiv)
+            wrongpass_div.setAttribute('style', "display: none; color:red")
+            wrongpass_div.innerHTML = "Wrong password"
+            pass_div.append(wrongpass_div)
         }
         document.getElementById('searchReplyField').appendChild(unorderedList)
+    })
+    event.preventDefault();
+})
+
+$(document).on('submit', '#loginForm', function(event){
+    formElem = event.target
+    objectId = formElem.children[2].getAttribute('id')
+
+    checklistLoginId = "#checklistIdfor" + objectId
+    passLoginId = "#passIdfor" + objectId
+    errorLoginId = "errorLoginDivfor" + objectId
+    $.ajax({
+        data : {
+            checklist_name : $(checklistLoginId).val(),
+            password : $(passLoginId).val()
+        },
+        type : 'POST',
+        url : '/login'
+    })
+    .done(function(data){
+        if (data.error){
+            document.getElementById(errorLoginId).style.display = "block"
+            document.getElementById('passIdfor' + objectId).value = "";
+        } else {
+            document.getElementById(errorLoginId).style.display = "none"
+            window.location.replace(data.redirectURL)
+        }
     })
     event.preventDefault();
 })
@@ -72,7 +135,8 @@ $(document).on('keydown', '#searchForm', function(event){
 
 function hidePasswordField(element_id){
 	if (document.getElementById(element_id).style.display == "block"){
-		document.getElementById(element_id).style.display = "none"
+        document.getElementById("errorLoginDivfor" + element_id).style.display = "none"
+        document.getElementById(element_id).style.display = "none"
 	} else{
 		document.getElementById(element_id).style.display = "block"
 	}

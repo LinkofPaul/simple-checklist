@@ -25,25 +25,24 @@ def index():
 
 @app.route('/checklist/<name>')
 def checklist(name):
-    if request.referrer == url_for("index",_external=True):
-        return render_template("checklist.html", title="Checklist", name=name)
-    else:
+    if not request.referrer:
         abort(404)
+    else:
+        return render_template("checklist.html", title="Checklist", name=name)
 
 @app.route("/setup", methods=["POST"])
 def setup():
-    checklist_name = request.form.get('name')
+    checklist_name = request.form.get('name').strip()
     # check here if name is already taken 
     if Checklist.query.filter_by(name=checklist_name).first():
-        # TODO
-        return f'Name already taken'
+        return jsonify(error=True)
     # save credentails, hash password 
     else:
         checklist =  Checklist(name=checklist_name)
         checklist.set_password(request.form.get('password'))
         db.session.add(checklist)
         db.session.commit()
-        return redirect(url_for("checklist", name=checklist_name))
+        return jsonify(error=False, redirectURL=url_for("checklist", name=checklist_name, _external=True))
 
 @app.route("/search", methods=["POST"])
 def search():
@@ -59,10 +58,9 @@ def login():
     checklist_name = request.form.get('checklist_name')
     checklist = Checklist.query.filter_by(name=checklist_name).first()
     if checklist.check_password(request.form.get('password')):
-        return redirect(url_for("checklist", name=checklist_name))
+        return jsonify(error=False, redirectURL=url_for("checklist", name=checklist_name, _external=True))
     else:
-        # TODO
-        return f'Wrong password'
+        return jsonify(error=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
