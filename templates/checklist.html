@@ -2,4 +2,11 @@
 
 {% block body %}
 <p>{{name}}</p>
+{% for task in tasks %}
+<p>{{task.name}}</p>
+{% endfor %}
+<form id="addTaskForm" action="/checklist/add_task" method="post">
+    <input type="hidden" name=name value={{name}}>
+    <input type="text" name="newTask" id="newTaskId"><input type="submit" value="add">
+</form>
 {% endblock %}

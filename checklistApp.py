@@ -10,15 +10,22 @@ db = SQLAlchemy(app)
 
 class Checklist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(75))
-    password = db.Column(db.String(256))
+    name = db.Column(db.String(75), nullable=False)
+    password = db.Column(db.String(256), nullable=False)
+    tasks = db.relationship('Task', backref='checklist', lazy=True)
 
     def set_password(self, password):
         self.password = sha256_crypt.hash(password)
 
     def check_password(self, password):
         return sha256_crypt.verify(password, self.password)
-    
+
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(75), nullable=False)
+    done = db.Column(db.Boolean)
+    checklist_id = db.Column(db.Integer, db.ForeignKey('checklist.id'))
+
 @app.route('/')
 def index():
     return render_template("index.html", title="Checklist")
@@ -28,7 +35,29 @@ def checklist(name):
     if not request.referrer:
         abort(404)
     else:
-        return render_template("checklist.html", title="Checklist", name=name)
+        # load all tasks form Checklist(name) into variable tasks
+        checklist = Checklist.query.filter_by(name=name).first()
+        tasks = checklist.tasks
+        print(tasks)
+        return render_template("checklist.html", title="Checklist", name=name, tasks=tasks)
+
+def append_task(checklist_name, task_name):
+    checklist = Checklist.query.filter_by(name=checklist_name).first()
+    task = Task(name=task_name, done=False)
+    checklist.tasks.append(task)
+    db.session.add(checklist)
+    db.session.add(task)
+    db.session.commit()
+
+@app.route('/checklist/add_task', methods=["POST"])
+# redo for ajax later
+def add_task():
+    checklist_name = request.form.get('name')
+    task_name = request.form.get('newTask')
+    append_task(checklist_name, task_name)
+    checklist = Checklist.query.filter_by(name=checklist_name).first()
+    tasks = checklist.tasks
+    return render_template("checklist.html", title="Checklist", name=checklist_name, tasks=tasks) 
 
 @app.route("/setup", methods=["POST"])
 def setup():
