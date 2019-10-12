@@ -3,10 +3,22 @@
 {% block body %}
 <p>{{name}}</p>
 {% for task in tasks %}
-<p>{{task.name}}</p>
+<ul>
+    <li>
+        <form action="/checklist/process_task" method="post">
+            <input type="hidden" value="{{name}}" name="checklist_name">
+            <input type="hidden" value="{{task.name}}" name="task_name">
+            {% if task.done %} 
+                <div style="text-decoration: line-through;">{{task.name}} <input type="submit" value="not done"></div> 
+            {% else %}
+                <div>{{task.name}} <input type="submit" value="done"></div> 
+            {% endif %}
+        </form>
+    </li>
+</ul>
 {% endfor %}
 <form id="addTaskForm" action="/checklist/add_task" method="post">
     <input type="hidden" name=name value={{name}}>
-    <input type="text" name="newTask" id="newTaskId"><input type="submit" value="add">
+    <input type="text" name="newTask"><input type="submit" value="add">
 </form>
 {% endblock %}

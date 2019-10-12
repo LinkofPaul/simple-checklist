@@ -38,7 +38,6 @@ def checklist(name):
         # load all tasks form Checklist(name) into variable tasks
         checklist = Checklist.query.filter_by(name=name).first()
         tasks = checklist.tasks
-        print(tasks)
         return render_template("checklist.html", title="Checklist", name=name, tasks=tasks)
 
 def append_task(checklist_name, task_name):
@@ -48,6 +47,11 @@ def append_task(checklist_name, task_name):
     db.session.add(checklist)
     db.session.add(task)
     db.session.commit()
+    
+def reload_checklist(checklist_name):
+    checklist = Checklist.query.filter_by(name=checklist_name).first()
+    tasks = checklist.tasks
+    return render_template("checklist.html", title="Checklist", name=checklist_name, tasks=tasks)
 
 @app.route('/checklist/add_task', methods=["POST"])
 # redo for ajax later
@@ -55,9 +59,21 @@ def add_task():
     checklist_name = request.form.get('name')
     task_name = request.form.get('newTask')
     append_task(checklist_name, task_name)
+    return reload_checklist(checklist_name)
+
+@app.route('/checklist/process_task', methods=["POST"])
+def process_task():
+    checklist_name = request.form.get('checklist_name')
+    task_name = request.form.get('task_name')
     checklist = Checklist.query.filter_by(name=checklist_name).first()
     tasks = checklist.tasks
-    return render_template("checklist.html", title="Checklist", name=checklist_name, tasks=tasks) 
+    for task in tasks:
+        if task.name == task_name:
+            task.done = not task.done
+    db.session.add(checklist)
+    db.session.add(task)
+    db.session.commit()
+    return reload_checklist(checklist_name)
 
 @app.route("/setup", methods=["POST"])
 def setup():
