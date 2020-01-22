@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
-<button type="button" id="createButton">create new checklist</button> <br>
+<button type="button" id="createButton" class="btn btn-info">create new checklist</button> <br>
 <div id="formDiv" style="display: none;"></div>
 <form action="/search" id="searchForm" method="post">
 <label>search for created checklist: </label><input type="text" name="search_text" id="search_text_id">
