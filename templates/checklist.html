@@ -4,7 +4,7 @@
 <p>{{name}}</p>
 {% for task in tasks %}
 <ul>
-    <li onmouseover="show_remove_button({{task.name}})" onmouseout="hide_remove_button({{task.name}})">
+    <li onmouseover="show_remove_button('{{task.name_non_white}}');" onmouseout="hide_remove_button('{{task.name_non_white}}');">
         <form action="/checklist/process_task" method="post">
             <input type="hidden" value="{{name}}" name="checklist_name">
             <input type="hidden" value="{{task.name}}" name="task_name">
@@ -13,18 +13,20 @@
                     {{task.name}}
                 </p> 
                 <input type="submit" name="check_button" value="not done">
-                <input type="submit" class="task_remove_button" name="task_remove_button" id="{{task.name}}" value="X">
+                <input type="submit" class="task_remove_button" name="task_remove_button" id="{{task.name_non_white}}" value="X">
             {% else %}
-                {{task.name}} 
+                <p style="display: inline;">
+                    {{task.name}} 
+                </p>
                 <input type="submit" name="check_button" value="done">
-                <input type="submit"  class="task_remove_button" name="task_remove_button" id="{{task.name}}" value="X">
+                <input type="submit"  class="task_remove_button" name="task_remove_button" id="{{task.name_non_white}}" value="X">
             {% endif %}
         </form>
     </li>
 </ul>
 {% endfor %}
 <form action="/checklist/add_task" method="post">
-    <input type="hidden" name=name value={{name}}>
+    <input type="hidden" name="name" value="{{name}}">
     <input type="text" name="newTask"><input type="submit" value="add">
 </form>
 {% endblock %}

@@ -23,6 +23,8 @@ class Checklist(db.Model):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(75), nullable=False)
+    #tmp solution
+    name_non_white = db.Column(db.String(75), nullable=False)
     done = db.Column(db.Boolean)
     checklist_id = db.Column(db.Integer, db.ForeignKey('checklist.id'))
 
@@ -42,7 +44,7 @@ def checklist(name):
 
 def append_task(checklist_name, task_name):
     checklist = Checklist.query.filter_by(name=checklist_name).first()
-    task = Task(name=task_name, done=False)
+    task = Task(name=task_name, name_non_white=task_name.replace(" ", ""), done=False)
     checklist.tasks.append(task)
     db.session.add(checklist)
     db.session.add(task)
