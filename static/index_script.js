@@ -3,7 +3,7 @@ createForm.setAttribute('action', "/setup");
 createForm.setAttribute('method', "post");
 createForm.setAttribute('id', "createForm");
 createForm.innerHTML = `
-    <label>Name of checklist: </label><input name="name" id="createNameId" type="text" required> <br>
+    <label>Name of Checklist: </label><input name="name" id="createNameId" type="text" required> <br>
     <label>Password: </label><input name="password" id="createPasswordId" type="password" required> <br>
     <div id="nameTakenDiv" style="display: none; color:red">Name already taken</div>
     <input type="submit" value="Create">
@@ -51,7 +51,6 @@ $(document).on('keyup', '#search_text_id', function(event){
     })
     .done(function(data){
         document.getElementById('searchReplyField').innerHTML = "";
-
         unorderedList = document.createElement("ul");
         search_field_size = (data.names_length > 10) ? 10 : data.names_length
         for(i = 0; i < search_field_size; i++){

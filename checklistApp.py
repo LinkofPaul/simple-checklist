@@ -28,7 +28,7 @@ class Task(db.Model):
 
 @app.route('/')
 def index():
-    return render_template("index.html", title="Checklist")
+    return render_template("index.html", title="Simple Checklist")
 
 @app.route('/checklist/<name>')
 def checklist(name):
@@ -38,7 +38,7 @@ def checklist(name):
         # load all tasks form Checklist(name) into variable tasks
         checklist = Checklist.query.filter_by(name=name).first()
         tasks = checklist.tasks
-        return render_template("checklist.html", title="Checklist", name=name, tasks=tasks)
+        return render_template("checklist.html", title="%s - Checklist" %(name), name=name, tasks=tasks)
 
 def append_task(checklist_name, task_name):
     checklist = Checklist.query.filter_by(name=checklist_name).first()
@@ -51,10 +51,9 @@ def append_task(checklist_name, task_name):
 def reload_checklist(checklist_name):
     checklist = Checklist.query.filter_by(name=checklist_name).first()
     tasks = checklist.tasks
-    return render_template("checklist.html", title="Checklist", name=checklist_name, tasks=tasks)
+    return render_template("checklist.html", title="%s - Checklist" %(checklist_name), name=checklist_name, tasks=tasks)
 
 @app.route('/checklist/add_task', methods=["POST"])
-# redo for ajax later
 def add_task():
     checklist_name = request.form.get('name')
     task_name = request.form.get('newTask')
@@ -65,15 +64,29 @@ def add_task():
 def process_task():
     checklist_name = request.form.get('checklist_name')
     task_name = request.form.get('task_name')
-    checklist = Checklist.query.filter_by(name=checklist_name).first()
-    tasks = checklist.tasks
-    for task in tasks:
-        if task.name == task_name:
-            task.done = not task.done
-    db.session.add(checklist)
-    db.session.add(task)
-    db.session.commit()
-    return reload_checklist(checklist_name)
+    #check_button = request.form.get('check_button')
+    task_remove_button = request.form.get('task_remove_button')
+    if task_remove_button != None:
+        checklist = Checklist.query.filter_by(name=checklist_name).first()
+        tasks = checklist.tasks
+        #TODO somehow last task in list can not be removed
+        for task in tasks:
+            if task.name == task_name:
+                db.session.delete(task)
+        db.session.add(checklist)
+        db.session.add(task)
+        db.session.commit()
+        return reload_checklist(checklist_name)
+    else:
+        checklist = Checklist.query.filter_by(name=checklist_name).first()
+        tasks = checklist.tasks
+        for task in tasks:
+            if task.name == task_name:
+                task.done = not task.done
+        db.session.add(checklist)
+        db.session.add(task)
+        db.session.commit()
+        return reload_checklist(checklist_name)
 
 @app.route("/setup", methods=["POST"])
 def setup():
@@ -92,6 +105,8 @@ def setup():
 @app.route("/search", methods=["POST"])
 def search():
     search_text = request.form.get('search_text')
+    if search_text == "":
+        return jsonify(names=[], names_length=0)
     valid_checklists = Checklist.query.filter(Checklist.name.startswith(search_text)).all()
     name_array = []
     for checklist in valid_checklists:
