@@ -27,6 +27,6 @@
 {% endfor %}
 <form action="/checklist/add_task" method="post">
     <input type="hidden" name="name" value="{{name}}">
-    <input type="text" name="newTask"><input type="submit" value="add">
+    <input type="text" name="newTask" maxlength="75" required><input type="submit" value="add">
 </form>
 {% endblock %}

@@ -3,8 +3,8 @@ createForm.setAttribute('action', "/setup");
 createForm.setAttribute('method', "post");
 createForm.setAttribute('id', "createForm");
 createForm.innerHTML = `
-    <label>Name of Checklist: </label><input name="name" id="createNameId" type="text" required> <br>
-    <label>Password: </label><input name="password" id="createPasswordId" type="password" required> <br>
+    <label>Name of Checklist: </label><input name="name" id="createNameId" type="text" maxlength="75" required> <br>
+    <label>Password: </label><input name="password" id="createPasswordId" type="password" maxlength="256" required> <br>
     <div id="nameTakenDiv" style="display: none; color:red">Name already taken</div>
     <input type="submit" value="Create">
     `
