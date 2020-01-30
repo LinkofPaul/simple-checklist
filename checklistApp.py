@@ -72,21 +72,20 @@ def process_task():
         checklist = Checklist.query.filter_by(name=checklist_name).first()
         tasks = checklist.tasks
         #TODO somehow last task in list can not be removed
+        db.session.add(checklist)
         for task in tasks:
             if task.name == task_name:
                 db.session.delete(task)
-        db.session.add(checklist)
-        db.session.add(task)
         db.session.commit()
         return reload_checklist(checklist_name)
     else:
         checklist = Checklist.query.filter_by(name=checklist_name).first()
         tasks = checklist.tasks
+        db.session.add(checklist)
         for task in tasks:
             if task.name == task_name:
                 task.done = not task.done
-        db.session.add(checklist)
-        db.session.add(task)
+                db.session.add(task)
         db.session.commit()
         return reload_checklist(checklist_name)
 
