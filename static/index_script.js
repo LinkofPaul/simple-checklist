@@ -1,10 +1,15 @@
 var createForm = document.createElement("form");
+createForm.setAttribute('class', 'form-signin')
 createForm.setAttribute('action', "/setup");
 createForm.setAttribute('method', "post");
 createForm.setAttribute('id', "createForm");
 createForm.innerHTML = `
-    <label>Name of Checklist: </label><input name="name" id="createNameId" type="text" maxlength="75" required> <br>
-    <label>Password: </label><input name="password" id="createPasswordId" type="password" maxlength="256" required> <br>
+    <div class="form-label-group">
+        <input name="name" id="createNameId" type="text" placeholder="Name of Checklist" maxlength="75" required>
+    </div>
+    <div class="form-label-group">
+        <input name="password" id="createPasswordId" type="password" placeholder="Password" maxlength="256" required> 
+    </div>
     <div id="nameTakenDiv" style="display: none; color:red">Name already taken</div>
     <input type="submit" value="Create">
     `
@@ -82,8 +87,8 @@ $(document).on('keyup', '#search_text_id', function(event){
             pass_div.setAttribute('id', data.names_concat[i]);
             pass_div.setAttribute('style', "display:none");
             passAtt = "passIdfor" + data.names_concat[i]
-            pass_div.innerHTML = `<label>Password: </label><input type="password" id="`
-                                    + passAtt + `" name="password"  maxlength="256" required>
+            pass_div.innerHTML = `<input type="password" id="`
+                                    + passAtt + `" name="password" placeholder="Password" maxlength="256" required>
                                   <input type="submit" value="open">`
             listForm.appendChild(pass_div)
 
