@@ -112,7 +112,10 @@ def search():
     name_array = []
     for checklist in valid_checklists:
         name_array.append(checklist.name)
-    return jsonify(names=name_array,names_length=len(name_array))
+    name_concat_array = []
+    for name in name_array:
+        name_concat_array.append(name.replace(" ", ""))
+    return jsonify(names=name_array, names_concat=name_concat_array, names_length=len(name_array))
 
 @app.route("/login", methods=["POST"])
 def login():

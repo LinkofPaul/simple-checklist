@@ -66,29 +66,29 @@ $(document).on('keyup', '#search_text_id', function(event){
             name_input = document.createElement("input");
             name_input.setAttribute('type', 'hidden')
             name_input.setAttribute('name', 'checklist_name')
-            idAtt = "checklistIdfor" + data.names[i]
+            idAtt = "checklistIdfor" + data.names_concat[i]
             name_input.setAttribute('id', idAtt)
             name_input.setAttribute('value', data.names[i])
             listForm.appendChild(name_input)
 
             name_div = document.createElement("div");
-            hide_func = 'hidePasswordField("' + data.names[i] + '")'
+            hide_func = 'hidePasswordField("' + data.names_concat[i] + '")'
             name_div.setAttribute('onclick', hide_func);
             name_div.setAttribute('style', "cursor:pointer");
             name_div.innerHTML = data.names[i]
             listForm.appendChild(name_div)
 
             pass_div = document.createElement("div");
-            pass_div.setAttribute('id', data.names[i]);
+            pass_div.setAttribute('id', data.names_concat[i]);
             pass_div.setAttribute('style', "display:none");
-            passAtt = "passIdfor" + data.names[i]
+            passAtt = "passIdfor" + data.names_concat[i]
             pass_div.innerHTML = `<label>Password: </label><input type="password" id="`
-                                    + passAtt + `" name="password" required>
+                                    + passAtt + `" name="password"  maxlength="256" required>
                                   <input type="submit" value="open">`
             listForm.appendChild(pass_div)
 
             wrongpass_div = document.createElement("div");
-            errorLoginDiv = "errorLoginDivfor" + data.names[i]
+            errorLoginDiv = "errorLoginDivfor" + data.names_concat[i]
             wrongpass_div.setAttribute('id', errorLoginDiv)
             wrongpass_div.setAttribute('style', "display: none; color:red")
             wrongpass_div.innerHTML = "Wrong password"
