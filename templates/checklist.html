@@ -9,15 +9,17 @@
             <input type="hidden" value="{{name}}" name="checklist_name">
             <input type="hidden" value="{{task.name}}" name="task_name">
             {% if task.done %} 
-                <p style="text-decoration: line-through; display: inline;">
+                <p style="text-decoration: line-through; display: inline; font-family: Courier New;">
                     {{task.name}}
                 </p> 
+                <p style="display: inline; font-weight: bold; font-family: Courier New;"> .................... </p>
                 <input type="submit" name="check_button" value="not done">
                 <input type="submit" class="task_remove_button" name="task_remove_button" id="{{task.name_non_white}}" value="X">
             {% else %}
-                <p style="display: inline;">
+                <p style="display: inline; font-family: Courier New;">
                     {{task.name}} 
                 </p>
+                <p style="display: inline; font-weight: bold; font-family: Courier New;"> .................... </p>
                 <input type="submit" name="check_button" value="done">
                 <input type="submit"  class="task_remove_button" name="task_remove_button" id="{{task.name_non_white}}" value="X">
             {% endif %}
@@ -27,6 +29,6 @@
 {% endfor %}
 <form action="/checklist/add_task" method="post">
     <input type="hidden" name="name" value="{{name}}">
-    <input type="text" name="newTask" maxlength="75" required><input type="submit" value="add">
+    <input type="text" name="newTask" maxlength="25" required><input type="submit" value="add">
 </form>
 {% endblock %}
