@@ -24,9 +24,9 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(75), nullable=False)
     #tmp solution
-    name_non_white = db.Column(db.String(75), nullable=False)
+    name_non_white = db.Column(db.String(90), nullable=False)
     #tmp solution
-    name_dots = db.Column(db.String(79), nullable=False)
+    name_dots = db.Column(db.String(94), nullable=False)
     done = db.Column(db.Boolean)
     checklist_id = db.Column(db.Integer, db.ForeignKey('checklist.id'))
 
@@ -46,7 +46,7 @@ def checklist(name):
 
 def append_task(checklist_name, task_name):
     checklist = Checklist.query.filter_by(name=checklist_name).first()
-    task = Task(name=task_name, name_non_white=task_name.replace(" ", ""), name_dots=task_name.replace(" ", "")+"dots", done=False)
+    task = Task(name=task_name, name_non_white=task_name.replace(" ", "-_-"), name_dots=task_name.replace(" ", "-_-")+"dots", done=False)
     checklist.tasks.append(task)
     db.session.add(checklist)
     db.session.add(task)
