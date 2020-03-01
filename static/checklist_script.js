@@ -8,6 +8,10 @@ function hide_remove_button(task_name) {
     $("#" + task_name).hide();
 };
 
+function toggle_remove_button(task_name) {
+    $("#" + task_name).toggle();
+};
+
 $(document).on('submit', '#createTaskForm', function(event){
     event.preventDefault();
     $.ajax({

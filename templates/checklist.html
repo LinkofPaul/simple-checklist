@@ -4,7 +4,7 @@
 <p>{{name}}</p>
 {% for task in tasks %}
 <ul>
-    <li onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');">
+    <li onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" onclick="toggle_remove_button('{{task.index}}');">
         <form action="/checklist/process_task" method="post">
             <input type="hidden" value="{{name}}" name="checklist_name">
             <input type="hidden" value="{{task.name}}" name="task_name">
