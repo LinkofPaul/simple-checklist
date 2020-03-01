@@ -25,6 +25,7 @@ document.getElementById("createButton").addEventListener("click", function(){
 });
 
 $(document).on('submit', '#createForm', function(event){
+    event.preventDefault();
     $.ajax({
         data : {
             name : $('#createNameId').val(),
@@ -40,13 +41,13 @@ $(document).on('submit', '#createForm', function(event){
             document.getElementById('createPasswordId').value = "";
         } else {
             document.getElementById("nameTakenDiv").style.display = "none"
-            window.location.replace(data.redirectURL)
+            window.location.assign(data.redirectURL)
         }
     })
-    event.preventDefault();
 })
 
 $(document).on('keyup', '#search_text_id', function(event){
+    event.preventDefault();
     $.ajax({
         data : {
             search_text : $('#search_text_id').val()
@@ -88,7 +89,7 @@ $(document).on('keyup', '#search_text_id', function(event){
             pass_div.setAttribute('style', "display:none");
             passAtt = "passIdfor" + data.names_concat[i]
             pass_div.innerHTML = `<input type="password" id="`
-                                    + passAtt + `" name="password" placeholder="Password" maxlength="256" required>
+                                    + passAtt + `" name="password" placeholder="Password" maxlength="256">
                                   <input type="submit" value="open">`
             listForm.appendChild(pass_div)
 
@@ -101,10 +102,11 @@ $(document).on('keyup', '#search_text_id', function(event){
         }
         document.getElementById('searchReplyField').appendChild(unorderedList)
     })
-    event.preventDefault();
 })
 
 $(document).on('submit', '#loginForm', function(event){
+    event.preventDefault();
+    
     formElem = event.target
     objectId = formElem.children[2].getAttribute('id')
 
@@ -125,10 +127,9 @@ $(document).on('submit', '#loginForm', function(event){
             document.getElementById('passIdfor' + objectId).value = "";
         } else {
             document.getElementById(errorLoginId).style.display = "none"
-            window.location.replace(data.redirectURL)
+            window.location.assign(data.redirectURL)
         }
     })
-    event.preventDefault();
 })
 
 $(document).on('keydown', '#searchForm', function(event){

@@ -4,7 +4,7 @@
 <p>{{name}}</p>
 {% for task in tasks %}
 <ul>
-    <li onmouseover="show_remove_button('{{task.name_non_white}}');" onmouseout="hide_remove_button('{{task.name_non_white}}');">
+    <li onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');">
         <form action="/checklist/process_task" method="post">
             <input type="hidden" value="{{name}}" name="checklist_name">
             <input type="hidden" value="{{task.name}}" name="task_name">
@@ -12,11 +12,11 @@
                 <p style="text-decoration: line-through; display: inline; font-family: Courier New;">
                     {{task.name}}
                 </p> 
-                <p style="display: inline; font-weight: bold; font-family: Courier New;" id="{{task.name_dots}}"> 
+                <p style="display: inline; font-weight: bold; font-family: Courier New;" id="{{task.index + 'dots'}}"> 
                     <script type="text/javascript">
-                        var p_elem = document.getElementById("{{task.name_dots}}");
+                        var p_elem = document.getElementById("{{task.index + 'dots'}}");
                         var dots = "";
-                        var len_dots = 30 - "{{task.name}}".length;
+                        var len_dots = 39 - "{{task.name}}".length;
                         for(let i = 0; i < len_dots; i++){
                             dots = dots + "."
                         }
@@ -24,16 +24,16 @@
                     </script>
                 </p>
                 <input type="submit" name="check_button" value="not done">
-                <input type="submit" class="task_remove_button" name="task_remove_button" id="{{task.name_non_white}}" value="X">
+                <input type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value="X">
             {% else %}
                 <p style="display: inline; font-family: Courier New;">
                     {{task.name}} 
                 </p>
-                <p style="display: inline; font-weight: bold; font-family: Courier New;" id="{{task.name_dots}}"> 
+                <p style="display: inline; font-weight: bold; font-family: Courier New;" id="{{task.index + 'dots'}}"> 
                     <script type="text/javascript">
-                        var p_elem = document.getElementById("{{task.name_dots}}");
+                        var p_elem = document.getElementById("{{task.index + 'dots'}}");
                         var dots = "";
-                        var len_dots = 30 - "{{task.name}}".length;
+                        var len_dots = 39 - "{{task.name}}".length;
                         for(let i = 0; i < len_dots; i++){
                             dots = dots + "."
                         }
@@ -41,14 +41,15 @@
                     </script>
                 </p>
                 <input type="submit" name="check_button" value="done">
-                <input type="submit"  class="task_remove_button" name="task_remove_button" id="{{task.name_non_white}}" value="X">
+                <input type="submit"  class="task_remove_button" name="task_remove_button" id="{{task.index}}" value="X">
             {% endif %}
         </form>
     </li>
 </ul>
 {% endfor %}
-<form action="/checklist/add_task" method="post">
-    <input type="hidden" name="name" value="{{name}}">
-    <input type="text" name="newTask" maxlength="30" required><input type="submit" value="add">
+<form action="/checklist/add_task" method="post" id="createTaskForm">
+    <input type="hidden" name="name" value="{{name}}" id="checklistforTaskId">
+    <input type="text" name="newTask" maxlength="40" id="newTaskId" required><input type="submit" value="add">
 </form>
+<div id="taskTakenDiv" style="display: none; color:red">Task already added</div>
 {% endblock %}
