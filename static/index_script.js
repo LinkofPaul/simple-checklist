@@ -88,9 +88,9 @@ $(document).on('keyup', '#search_text_id', function(event){
             pass_div.setAttribute('id', data.names_concat[i]);
             pass_div.setAttribute('style', "display:none");
             passAtt = "passIdfor" + data.names_concat[i]
-            pass_div.innerHTML = `<input type="password" id="`
+            pass_div.innerHTML = `<input class="form-control-sm" type="password" id="`
                                     + passAtt + `" name="password" placeholder="Password" maxlength="256">
-                                  <input type="submit" value="open">`
+                                  <input class="btn-sm btn-outline-dark" type="submit" value="open">`
             listForm.appendChild(pass_div)
 
             wrongpass_div = document.createElement("div");
