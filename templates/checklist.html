@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
+<h2><a href={{ url_for("index") }} style="cursor: pointer; text-decoration: none; color: black">Simple Checklist</a></h2>
 <p>{{name}}</p>
 {% for task in tasks %}
 <ul>

@@ -5,10 +5,10 @@ createForm.setAttribute('method', "post");
 createForm.setAttribute('id', "createForm");
 createForm.innerHTML = `
     <div class="form-label-group">
-        <input name="name" id="createNameId" type="text" placeholder="Name of Checklist" maxlength="75" required>
+        <input name="name" class="form-control create-list-name" id="createNameId" type="text" placeholder="Name of Checklist" maxlength="75" required>
     </div>
     <div class="form-label-group">
-        <input name="password" id="createPasswordId" type="password" placeholder="Password" maxlength="256" required> 
+        <input name="password" class="form-control create-list-password" id="createPasswordId" type="password" placeholder="Password" maxlength="256" required> 
     </div>
     <div id="nameTakenDiv" style="display: none; color:red">Name already taken</div>
     <input type="submit" value="Create">
@@ -57,10 +57,10 @@ $(document).on('keyup', '#search_text_id', function(event){
     })
     .done(function(data){
         document.getElementById('searchReplyField').innerHTML = "";
-        unorderedList = document.createElement("ul");
+        unorderedList = document.createElement("div");
         search_field_size = (data.names_length > 10) ? 10 : data.names_length
         for(i = 0; i < search_field_size; i++){
-            listIteam = document.createElement("li");
+            listIteam = document.createElement("div");
             unorderedList.appendChild(listIteam)
 
             listForm = document.createElement("form");

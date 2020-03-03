@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block body %}
-<button type="button" id="createButton">Create new Checklist</button> <br>
-<div id="formDiv" style="display: none;"></div>
-<form action="/search" id="searchForm" method="post">
-<!--<label>Search for created Checklist: </label><input type="text" name="search_text" id="search_text_id">-->
-<input type="text" name="search_text" id="search_text_id" placeholder="Search for existing Checklist">
-</form>
-<div id="searchReplyField"></div>
+<div class="text-center index-class">
+        <h2><a href={{ url_for("index") }} style="cursor: pointer; text-decoration: none; color: black">Simple Checklist</a></h2>
+        <button type="button" id="createButton">Create new Checklist</button> <br>
+        <div id="formDiv" style="display: none;"></div>
+        <form action="/search" id="searchForm" method="post">
+        <!--<label>Search for created Checklist: </label><input type="text" name="search_text" id="search_text_id">-->
+        <input type="text" class="form-control" name="search_text" id="search_text_id" placeholder="Search for existing Checklist">
+        </form>     
+        <div id="searchReplyField"></div>
+</div>
 {% endblock %}
