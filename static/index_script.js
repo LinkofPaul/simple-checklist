@@ -5,13 +5,13 @@ createForm.setAttribute('method', "post");
 createForm.setAttribute('id', "createForm");
 createForm.innerHTML = `
     <div class="form-label-group">
-        <input name="name" class="form-control create-list-name" id="createNameId" type="text" placeholder="Name of Checklist" maxlength="75" required>
+        <input name="name" class="form-control create-list-name" id="createNameId" type="text" placeholder="Name of Checklist" maxlength="75" required="">
     </div>
     <div class="form-label-group">
-        <input name="password" class="form-control create-list-password" id="createPasswordId" type="password" placeholder="Password" maxlength="256" required> 
+        <input name="password" class="form-control mb-2 create-list-password" id="createPasswordId" type="password" placeholder="Password" maxlength="256"> 
     </div>
-    <div id="nameTakenDiv" style="display: none; color:red">Name already taken</div>
-    <input type="submit" value="Create">
+    <div id="nameTakenDiv" class="mb-2" style="display: none; color:red">Name already taken</div>
+    <input class="mb-2 btn btn-outline-dark" type="submit" value="Create">
     `
 document.getElementById("createButton").addEventListener("click", function(){
     var fromDivEl = document.getElementById("formDiv")
@@ -20,6 +20,7 @@ document.getElementById("createButton").addEventListener("click", function(){
         fromDivEl.style.display = "block";
     } else {
         fromDivEl.style.display = "none";
+        document.getElementById("nameTakenDiv").style.display = "none";
         fromDivEl.removeChild(createForm)
     }
 });
@@ -64,6 +65,7 @@ $(document).on('keyup', '#search_text_id', function(event){
             unorderedList.appendChild(listIteam)
 
             listForm = document.createElement("form");
+            listForm.setAttribute('class', "replyField");
             listForm.setAttribute('action', "/login");
             listForm.setAttribute('method', "post");
             listForm.setAttribute('id', "loginForm");
@@ -81,24 +83,29 @@ $(document).on('keyup', '#search_text_id', function(event){
             hide_func = 'hidePasswordField("' + data.names_concat[i] + '")'
             name_div.setAttribute('onclick', hide_func);
             name_div.setAttribute('style', "cursor:pointer");
-            name_div.innerHTML = data.names[i]
+            name_div.innerHTML = '<h5 class="lead" style="font-weight: 450">' + data.names[i] + '</h5>'
             listForm.appendChild(name_div)
 
             pass_div = document.createElement("div");
             pass_div.setAttribute('id', data.names_concat[i]);
+            pass_div.setAttribute('class', "input-group input-group-sm");
             pass_div.setAttribute('style', "display:none");
             passAtt = "passIdfor" + data.names_concat[i]
-            pass_div.innerHTML = `<input class="form-control-sm" type="password" id="`
-                                    + passAtt + `" name="password" placeholder="Password" maxlength="256">
-                                  <input class="btn-sm btn-outline-dark" type="submit" value="open">`
+            pass_div.innerHTML = `<input class="form-control" type="password" id="`
+                                    + passAtt + `" name="password" placeholder="Password" maxlength="256">`
             listForm.appendChild(pass_div)
+
+            pass_btn_div = document.createElement("div");
+            pass_btn_div.setAttribute('class', "input-group-append");
+            pass_btn_div.innerHTML = `<button class="btn btn-outline-dark" type="submit">open</button>`
+            pass_div.appendChild(pass_btn_div);
 
             wrongpass_div = document.createElement("div");
             errorLoginDiv = "errorLoginDivfor" + data.names_concat[i]
             wrongpass_div.setAttribute('id', errorLoginDiv)
-            wrongpass_div.setAttribute('style', "display: none; color:red")
+            wrongpass_div.setAttribute('style', "display: none; color:red; text-align: center;")
             wrongpass_div.innerHTML = "Wrong password"
-            pass_div.append(wrongpass_div)
+            listForm.append(wrongpass_div)
         }
         document.getElementById('searchReplyField').appendChild(unorderedList)
     })
@@ -139,11 +146,11 @@ $(document).on('keydown', '#searchForm', function(event){
 })
 
 function hidePasswordField(element_id){
-	if (document.getElementById(element_id).style.display == "block"){
+	if (document.getElementById(element_id).style.display == "flex"){
         document.getElementById("errorLoginDivfor" + element_id).style.display = "none"
         document.getElementById(element_id).style.display = "none"
 	} else{
-		document.getElementById(element_id).style.display = "block"
+		document.getElementById(element_id).style.display = "flex"
 	}
 }
 
