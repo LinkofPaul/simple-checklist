@@ -5,7 +5,7 @@ createForm.setAttribute('method', "post");
 createForm.setAttribute('id', "createForm");
 createForm.innerHTML = `
     <div class="form-label-group">
-        <input name="name" class="form-control create-list-name" id="createNameId" type="text" placeholder="Name of Checklist" maxlength="75" required="">
+        <input name="name" class="form-control create-list-name" id="createNameId" type="text" placeholder="Name of Checklist" maxlength="50" required="">
     </div>
     <div class="form-label-group">
         <input name="password" class="form-control mb-2 create-list-password" id="createPasswordId" type="password" placeholder="Password" maxlength="256"> 
@@ -83,7 +83,8 @@ $(document).on('keyup', '#search_text_id', function(event){
             hide_func = 'hidePasswordField("' + data.names_concat[i] + '")'
             name_div.setAttribute('onclick', hide_func);
             name_div.setAttribute('style', "cursor:pointer");
-            name_div.innerHTML = '<h5 class="lead" style="font-weight: 450">' + data.names[i] + '</h5>'
+            var dot = String.fromCharCode(8226);
+            name_div.innerHTML = '<h5 class="lead" style="font-weight: 450; margin-right: -250px">' + dot + " " + data.names[i] + '</h5>'
             listForm.appendChild(name_div)
 
             pass_div = document.createElement("div");

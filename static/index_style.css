@@ -7,7 +7,7 @@ body {
 
 .index-class {
   width: 100%;
-  max-width: 330px;
+  max-width: 375px;
   padding-top: 100px;
   padding-right: 15px;
   padding-left: 15px;
@@ -33,6 +33,10 @@ body {
 
 .replyField {
   text-align: left;
+}
+
+.align_placeholder::placeholder{
+  text-align: center;
 }
 
 @media (max-height: 500px) {
