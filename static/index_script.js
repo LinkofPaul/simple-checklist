@@ -11,7 +11,7 @@ createForm.innerHTML = `
         <input name="password" class="form-control mb-2 create-list-password" id="createPasswordId" type="password" placeholder="Password" maxlength="256"> 
     </div>
     <div id="nameTakenDiv" class="mb-2" style="display: none; color:red">Name already taken</div>
-    <input class="mb-2 btn btn-outline-dark" type="submit" value="Create">
+    <input class="mb-2 btn btn-outline-secondary" type="submit" value="Create">
     `
 document.getElementById("createButton").addEventListener("click", function(){
     var fromDivEl = document.getElementById("formDiv")
@@ -98,7 +98,7 @@ $(document).on('keyup', '#search_text_id', function(event){
 
             pass_btn_div = document.createElement("div");
             pass_btn_div.setAttribute('class', "input-group-append");
-            pass_btn_div.innerHTML = `<button class="btn btn-outline-dark" type="submit">open</button>`
+            pass_btn_div.innerHTML = `<button class="btn btn-outline-secondary" type="submit">open</button>`
             pass_div.appendChild(pass_btn_div);
 
             wrongpass_div = document.createElement("div");

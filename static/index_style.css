@@ -31,6 +31,17 @@ body {
   font-size: 2.75rem;
 }
 
+.btn-outline-secondary {
+  border-color: #004B62;
+  color: #fff;
+  background-color: #004B62;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #004B62;
+  border-color: #004B62;
+}
+
 .replyField {
   text-align: left;
 }
