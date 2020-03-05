@@ -1,0 +1,62 @@
+html,
+body {
+  height: 100%;
+  background-color: #f5f5f5;
+  
+}
+
+.checklist-class {
+  width: 100%;
+  max-width: 600px;
+  padding-top: 100px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  margin: auto;
+  font-weight: 400;
+}
+
+.display-4 {
+  font-size: 2.75rem;
+}
+
+.btn-outline-secondary {
+    border-color: #004B62;
+    color: #fff;
+    background-color: #004B62;
+}
+  
+.btn-outline-secondary:hover {
+    background-color: #004B62;
+    border-color: #004B62;
+}
+
+@media (max-height: 500px) {
+    .checklist-class {
+      padding-top: 15px;
+    }
+}
+
+@media (max-width: 900px) {
+    .checklist-class {
+      max-width: 600px;
+    }
+}
+
+@media (max-width: 500px) {
+    .checklist-class {
+      max-width: 414px;
+    }
+}
+
+@media (max-width: 410px) {
+    .checklist-class {
+      max-width: 375px;
+    }
+}
+
+@media (max-width: 370px) {
+    .checklist-class {
+      max-width: 360px;
+    }
+}

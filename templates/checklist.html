@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h2><a href={{ url_for("index") }} style="cursor: pointer; text-decoration: none; color: black">Simple Checklist</a></h2>
-<p>{{name}}</p>
-{% for task in tasks %}
-<ul>
-    <li onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" onclick="toggle_remove_button('{{task.index}}');">
+<div class="text-center checklist-class">
+    <h2 class="display-4 mb-4"><a href={{ url_for("index") }} style="cursor: pointer; text-decoration: none; color: black">Simple Checklist</a></h2>
+    <p class="lead mb-3" style="text-align: left; font-size: 1.5rem;">{{name}}</p>
+    {% for task in tasks %}
+    <div style="text-align: left;" class="mb-1" onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" onclick="toggle_remove_button('{{task.index}}');">
         <form action="/checklist/process_task" method="post">
             <input type="hidden" value="{{name}}" name="checklist_name">
             <input type="hidden" value="{{task.name}}" name="task_name">
+            <p style="display: inline;">&#8718;</p>
             {% if task.done %} 
                 <p style="text-decoration: line-through; display: inline; font-family: Courier New;">
                     {{task.name}}
@@ -24,8 +25,8 @@
                         p_elem.innerHTML = dots;
                     </script>
                 </p>
-                <input type="submit" name="check_button" value="not done">
-                <input type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value="X">
+                <input type="image" src="../static/task-checked.svg" name="check_button" alt="not done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
+                <button type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value= "X" style="outline: none; border: 0px; background-color: #f5f5f5; width: 15px;"><img alt="X" src="../static/task-removed.svg" style="margin-left: -10px; margin-bottom: -2px;" width="22" height="22"></button>
             {% else %}
                 <p style="display: inline; font-family: Courier New;">
                     {{task.name}} 
@@ -41,16 +42,21 @@
                         p_elem.innerHTML = dots;
                     </script>
                 </p>
-                <input type="submit" name="check_button" value="done">
-                <input type="submit"  class="task_remove_button" name="task_remove_button" id="{{task.index}}" value="X">
+                <input type="image" src="../static/task-unchecked.svg" name="check_button" alt="done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
+                <button type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value= "X" style="outline: none; border: 0px; background-color: #f5f5f5; width: 15px;"><img alt="X" src="../static/task-removed.svg" style="margin-left: -10px; margin-bottom: -2px;" width="22" height="22"></button>
             {% endif %}
         </form>
-    </li>
-</ul>
-{% endfor %}
-<form action="/checklist/add_task" method="post" id="createTaskForm">
-    <input type="hidden" name="name" value="{{name}}" id="checklistforTaskId">
-    <input type="text" name="newTask" maxlength="40" id="newTaskId" required><input type="submit" value="add">
-</form>
-<div id="taskTakenDiv" style="display: none; color:red">Task already added</div>
+    </div>
+    {% endfor %}
+    <form action="/checklist/add_task" method="post" id="createTaskForm" style="text-align: left;">
+        <input type="hidden" name="name" value="{{name}}" id="checklistforTaskId">
+        <div class="input-group">
+            <input type="text" class="form-control mt-2" name="newTask" maxlength="40" id="newTaskId" placeholder="Task" required>
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-outline-secondary mt-2">add</button>
+            </div>
+        </div>
+    </form>
+    <div id="taskTakenDiv" style="display: none; color:red; text-align: left;">Task already added</div>
+</div>
 {% endblock %}
