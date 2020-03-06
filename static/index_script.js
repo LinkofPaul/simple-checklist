@@ -5,7 +5,7 @@ createForm.setAttribute('method', "post");
 createForm.setAttribute('id', "createForm");
 createForm.innerHTML = `
     <div class="form-label-group">
-        <input name="name" class="form-control create-list-name" id="createNameId" type="text" placeholder="Name of Checklist" maxlength="50" required="">
+        <input name="name" class="form-control create-list-name" id="createNameId" type="text" placeholder="Name of Checklist" maxlength="100" required="">
     </div>
     <div class="form-label-group">
         <input name="password" class="form-control mb-2 create-list-password" id="createPasswordId" type="password" placeholder="Password" maxlength="256"> 
@@ -58,10 +58,11 @@ $(document).on('keyup', '#search_text_id', function(event){
     })
     .done(function(data){
         document.getElementById('searchReplyField').innerHTML = "";
-        unorderedList = document.createElement("div");
+        unorderedList = document.createElement("ul");
+        unorderedList.setAttribute('style', "margin-left: -25px; color: #004B62; word-break: break-all");
         search_field_size = (data.names_length > 10) ? 10 : data.names_length
         for(i = 0; i < search_field_size; i++){
-            listIteam = document.createElement("div");
+            listIteam = document.createElement("li");
             unorderedList.appendChild(listIteam)
 
             listForm = document.createElement("form");
@@ -83,8 +84,8 @@ $(document).on('keyup', '#search_text_id', function(event){
             hide_func = 'hidePasswordField("' + data.names_concat[i] + '")'
             name_div.setAttribute('onclick', hide_func);
             name_div.setAttribute('style', "cursor:pointer");
-            var dot = String.fromCharCode(8226);
-            name_div.innerHTML = '<h5 class="lead" style="font-weight: 450; margin-right: -250px">' + dot + " " + data.names[i] + '</h5>'
+            //var dot = String.fromCharCode(8226);
+            name_div.innerHTML = '<h5 class="lead break-index-list" style="font-weight: 450; color: #212529;">' + data.names[i] + '</h5>'
             listForm.appendChild(name_div)
 
             pass_div = document.createElement("div");

@@ -31,6 +31,16 @@ body {
     border-color: #004B62;
 }
 
+.break-index-list {
+  margin-right: -500px;
+}
+
+@media (max-width: 950px) {
+  .break-index-list {
+    margin-right: 0px;
+  }
+}
+
 @media (max-height: 500px) {
     .checklist-class {
       padding-top: 15px;

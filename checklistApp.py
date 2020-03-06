@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 
 class Checklist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(256), nullable=False)
     tasks = db.relationship('Task', backref='checklist', lazy=True)
 
@@ -22,8 +22,8 @@ class Checklist(db.Model):
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    index = db.Column(db.String(75), nullable=True)
-    name = db.Column(db.String(75), nullable=False)
+    index = db.Column(db.String(150), nullable=True)
+    name = db.Column(db.String(150), nullable=False)
     done = db.Column(db.Boolean)
     checklist_id = db.Column(db.Integer, db.ForeignKey('checklist.id'))
 
