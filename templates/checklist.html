@@ -4,54 +4,95 @@
 <div class="text-center checklist-class">
     <h2 class="display-4 mb-4"><a href={{ url_for("index") }} style="cursor: pointer; text-decoration: none; color: black">Simple Checklist</a></h2>
     <p class="lead mb-3" style="text-align: left; font-size: 1.5rem;">{{name}}</p>
+    <ul style="margin-left: -25px; list-style-type: square;">
     {% for task in tasks %}
-    <div style="text-align: left;" class="mb-1" onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" onclick="toggle_remove_button('{{task.index}}');">
-        <form action="/checklist/process_task" method="post">
+    <li style="text-align: left;" class="mb-1" onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" onclick="toggle_remove_button('{{task.index}}');">
+        <form action="/checklist/process_task" method="post" id="formforTasks">
             <input type="hidden" value="{{name}}" name="checklist_name">
             <input type="hidden" value="{{task.name}}" name="task_name">
-            <p style="display: inline;">&#8718;</p>
             {% if task.done %} 
-                <p style="text-decoration: line-through; display: inline; font-family: Courier New;">
+                <p style="text-decoration: line-through; display: inline; font-family: Courier New; word-break: break-all;">
                     {{task.name}}
                 </p> 
                 <p style="display: inline; font-weight: bold; font-family: Courier New;" id="{{task.index + 'dots'}}"> 
                     <script type="text/javascript">
+                        // computing number of dots needed
+                        var widthofForm = document.getElementById("formforTasks").clientWidth;
+                        // 11 for square, 45 for icons and 2*9.6 for two white spaces
+                        var char_limit = Math.round((widthofForm - 44.38 - 2*9.6) / 9.6);
+                        var row_limit = char_limit + 6;
+                        var len_name = '{{task.name}}'.length;
+                        var num_rows = Math.floor(len_name / row_limit);
+                        var len_dots = 0;
+                        if(len_name % row_limit === 0){
+                                len_dots = char_limit 
+                        }else if(len_name < char_limit + row_limit * num_rows){
+                            len_dots = char_limit + row_limit * num_rows - len_name -1;
+                        } else if(len_name === char_limit + row_limit * num_rows){
+                            len_dots = 0
+                        } else if(len_name <= row_limit + row_limit * num_rows){
+                            len_dots = row_limit + row_limit * num_rows - len_name + char_limit - 1           
+                        }
                         var p_elem = document.getElementById("{{task.index + 'dots'}}");
                         var dots = "";
-                        var len_dots = 39 - "{{task.name}}".length;
                         for(let i = 0; i < len_dots; i++){
-                            dots = dots + "."
+                            dots = dots + "<wbr>" + "."
                         }
-                        p_elem.innerHTML = dots;
+                        if(len_dots > 0){
+                            p_elem.innerHTML = dots + "<wbr>";
+                        }       
                     </script>
                 </p>
                 <input type="image" src="../static/task-checked.svg" name="check_button" alt="not done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
-                <button type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value= "X" style="outline: none; border: 0px; background-color: #f5f5f5; width: 15px;"><img alt="X" src="../static/task-removed.svg" style="margin-left: -10px; margin-bottom: -2px;" width="22" height="22"></button>
+                <button type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value= "X" style="outline: none; border: 0px; background-color: #f5f5f5; width: 15px;">
+                    <img alt="X" src="../static/task-removed.svg" style="margin-left: -10px; margin-bottom: -1px;" width="22" height="22">
+                </button>
             {% else %}
-                <p style="display: inline; font-family: Courier New;">
+                <p style="display: inline; font-family: Courier New; word-break: break-all;">
                     {{task.name}} 
                 </p>
                 <p style="display: inline; font-weight: bold; font-family: Courier New;" id="{{task.index + 'dots'}}"> 
                     <script type="text/javascript">
+                        // computing number of dots needed
+                        var widthofForm = document.getElementById("formforTasks").clientWidth;
+                        // 11 for square, 45 for icons and 2*9.6 for two white spaces
+                        var char_limit = Math.round((widthofForm - 44.38 - 2*9.6) / 9.6);
+                        var row_limit = char_limit + 6;
+                        var len_name = '{{task.name}}'.length;
+                        var num_rows = Math.floor(len_name / row_limit);
+                        var len_dots = 0;
+                        if(len_name % row_limit === 0){
+                                len_dots = char_limit 
+                        }else if(len_name < char_limit + row_limit * num_rows){
+                            len_dots = char_limit + row_limit * num_rows - len_name -1;
+                        } else if(len_name === char_limit + row_limit * num_rows){
+                            len_dots = 0
+                        } else if(len_name <= row_limit + row_limit * num_rows){
+                            len_dots = row_limit + row_limit * num_rows - len_name + char_limit - 1           
+                        }
                         var p_elem = document.getElementById("{{task.index + 'dots'}}");
                         var dots = "";
-                        var len_dots = 39 - "{{task.name}}".length;
                         for(let i = 0; i < len_dots; i++){
-                            dots = dots + "."
+                            dots = dots + "<wbr>" + "."
                         }
-                        p_elem.innerHTML = dots;
+                        if(len_dots > 0){
+                            p_elem.innerHTML = dots + "<wbr>";
+                        }       
                     </script>
                 </p>
                 <input type="image" src="../static/task-unchecked.svg" name="check_button" alt="done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
-                <button type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value= "X" style="outline: none; border: 0px; background-color: #f5f5f5; width: 15px;"><img alt="X" src="../static/task-removed.svg" style="margin-left: -10px; margin-bottom: -2px;" width="22" height="22"></button>
+                <button type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value= "X" style="outline: none; border: 0px; background-color: #f5f5f5; width: 15px;">
+                    <img alt="X" src="../static/task-removed.svg" style="margin-left: -10px; margin-bottom: -1px;" width="22" height="22">
+                </button>
             {% endif %}
         </form>
-    </div>
+    </li>
     {% endfor %}
+    </ul>
     <form action="/checklist/add_task" method="post" id="createTaskForm" style="text-align: left;">
         <input type="hidden" name="name" value="{{name}}" id="checklistforTaskId">
         <div class="input-group">
-            <input type="text" class="form-control mt-2" name="newTask" maxlength="40" id="newTaskId" placeholder="Task" required>
+            <input type="text" class="form-control mt-2" name="newTask" maxlength="75" id="newTaskId" placeholder="Task" required>
             <div class="input-group-append">
                 <button type="submit" class="btn btn-outline-secondary mt-2">add</button>
             </div>
