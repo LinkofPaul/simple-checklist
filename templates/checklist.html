@@ -7,7 +7,7 @@
     <div class="progress mb-2" style="width: 90%; height: 10px;">
         <div class="progress-bar bg-success" role="progressbar" style="width: {{percentage}}" aria-valuenow="{{percent_num}}" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
-    <ul style="margin-left: -25px; list-style-type: square; color: #004B62">
+    <ul class="for-phone" style="margin-left: -25px; list-style-type: square; color: #004B62">
     {% for task in tasks %}
     <li style="text-align: left;" class="mb-1">
         <form action="/checklist/process_task" method="post" id="formforTasks">

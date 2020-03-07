@@ -35,6 +35,16 @@ body {
   margin-right: -500px;
 }
 
+.for-phone {
+  width: 100%;
+}
+
+@media (max-height: 750px) {
+  .for-phone {
+    width: 95%;
+  }
+}
+
 @media (max-width: 950px) {
   .break-index-list {
     margin-right: 0px;
