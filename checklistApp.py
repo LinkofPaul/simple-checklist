@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func
+import click
 from passlib.hash import sha256_crypt
 import os
 from dotenv import load_dotenv
@@ -146,6 +146,9 @@ def login():
     else:
         return jsonify(error=True)
 
+@app.cli.command('create_db')
+def create_db():
+	db.create_all()
+	
 if __name__ == '__main__':
-    db.create_all()
     app.run()
