@@ -50,6 +50,12 @@ body {
   text-align: center;
 }
 
+@media (max-height: 750px) {
+  .index-class {
+    padding-top: 75px;
+  }
+}
+
 @media (max-height: 500px) {
   .index-class {
     padding-top: 15px;

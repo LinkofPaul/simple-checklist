@@ -41,6 +41,12 @@ body {
   }
 }
 
+@media (max-height: 750px) {
+  .checklist-class {
+    padding-top: 75px;
+  }
+}
+
 @media (max-height: 500px) {
     .checklist-class {
       padding-top: 15px;
