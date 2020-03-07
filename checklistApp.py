@@ -34,6 +34,15 @@ class Task(db.Model):
 def index():
     return render_template("index.html", title="Simple Checklist")
 
+def status_Checklist(tasks):
+    percentage = 0
+    tasks_done = 0
+    for task in tasks:
+        if task.done:
+            tasks_done += 1
+    percentage = int(tasks_done / len(tasks) * 100)
+    return str(percentage) + "%"
+
 @app.route('/checklist/<name>')
 def checklist(name):
     if not request.referrer:
@@ -42,7 +51,8 @@ def checklist(name):
         # load all tasks form Checklist(name) into variable tasks
         checklist = Checklist.query.filter_by(name=name).first()
         tasks = checklist.tasks
-        return render_template("checklist.html", title="%s - Checklist" %(name), name=name, tasks=tasks)
+        percentage = status_Checklist(checklist.tasks)
+        return render_template("checklist.html", title="%s - Checklist" %(name), name=name, tasks=tasks, percentage=percentage, percent_num=percentage[ :-1])
 
 @app.route('/checklist/add_task', methods=["POST"])
 def add_task():
