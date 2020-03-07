@@ -5,7 +5,7 @@ from passlib.hash import sha256_crypt
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///checklist_db.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:72720ae890@localhost/checklist_db'
 db = SQLAlchemy(app)
 
 class Checklist(db.Model):
