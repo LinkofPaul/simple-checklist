@@ -1,0 +1,1 @@
+web: gunicorn checklistApp:app --log-file - 
