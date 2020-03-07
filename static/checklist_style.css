@@ -41,7 +41,7 @@ body {
 
 @media (max-height: 750px) {
   .for-phone {
-    width: 95%;
+    width: 50%;
   }
 }
 
