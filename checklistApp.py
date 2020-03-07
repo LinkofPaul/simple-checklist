@@ -40,7 +40,8 @@ def status_Checklist(tasks):
     for task in tasks:
         if task.done:
             tasks_done += 1
-    percentage = int(tasks_done / len(tasks) * 100)
+    if len(tasks) > 0:
+        percentage = int(tasks_done / len(tasks) * 100)
     return str(percentage) + "%"
 
 @app.route('/checklist/<name>')
@@ -142,4 +143,5 @@ def login():
         return jsonify(error=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    db.create_all()
+    app.run()
