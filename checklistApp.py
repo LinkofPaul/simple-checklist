@@ -1,11 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from passlib.hash import sha256_crypt
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
+load_dotenv()
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:72720ae890@localhost/checklist_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 db = SQLAlchemy(app)
 
 class Checklist(db.Model):
@@ -124,7 +128,7 @@ def search():
     search_text = request.form.get('search_text')
     if search_text == "":
         return jsonify(names=[], names_length=0)
-    valid_checklists = Checklist.query.filter(Checklist.name.startswith(search_text)).all()
+    valid_checklists = Checklist.query.filter(Checklist.name.ilike(search_text + '%')).all()
     name_array = []
     for checklist in valid_checklists:
         name_array.append(checklist.name)

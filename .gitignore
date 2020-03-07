@@ -1,4 +1,4 @@
 .vscode
 __pycache__
-*.sqlite3
-static/jQuery_3.4.1.js
+.env
+Procfile
