@@ -35,6 +35,12 @@ body {
   margin-right: -500px;
 }
 
+.stay-normal {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 @media (max-width: 950px) {
   .break-index-list {
     margin-right: 0px;

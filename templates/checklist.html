@@ -7,24 +7,24 @@
     <div class="progress mb-2" style="width: 90%; height: 10px;">
         <div class="progress-bar bg-success" role="progressbar" style="width: {{percentage}}" aria-valuenow="{{percent_num}}" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
-    <ul style="width: 50%; margin-left: -25px; list-style-type: square; color: #004B62">
+    <ul style="margin-left: -25px; list-style-type: square; color: #004B62">
     {% for task in tasks %}
-    <li style="text-align: left;" class="mb-1">
+    <li style="text-align: left;" class="mb-1" onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" >
         <form action="/checklist/process_task" method="post" id="formforTasks">
             <input type="hidden" value="{{name}}" name="checklist_name">
             <input type="hidden" value="{{task.name}}" name="task_name">
             {% if task.done %} 
                 <span style="color: #212529;">
-                    <p style="text-decoration: line-through; display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all;" onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" onclick="toggle_remove_button('{{task.index}}');">
+                    <p style="text-decoration: line-through; display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all;" onclick="toggle_remove_button('{{task.index}}');">
                         {{task.name}}
                     </p> 
                     <p style="display: inline; font-weight: bold; font-family: Courier New; font-size: 1rem;" id="{{task.index + 'dots'}}"> 
                         <script>
                             // computing number of dots needed
                             var widthofForm = $("#formforTasks").width();
-                            // 11 for square, 45 for icons and 2*9.6 for two white spaces (Courier New default size)
+                            // 50 for icons and 2*9.6 for two white spaces (Courier New default size)
                             var row_limit = Math.floor(widthofForm/ 9.6);   //characters which fit in one row
-                            var char_limit = Math.floor((widthofForm - 44.3834 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
+                            var char_limit = Math.floor((widthofForm - 50.3833 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
                             var len_name = '{{task.name}}'.length;
                             var num_rows = Math.floor(len_name / row_limit);
                             var p_elem = document.getElementById("{{task.index + 'dots'}}");
@@ -58,22 +58,24 @@
                         </script>
                     </p>
                 </span>
-                <input type="image" src="../static/task-checked.svg" name="check_button" alt="not done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
-                <button type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value= "X" style="outline: none; border: 0px; background-color: #f5f5f5; width: 15px;">
-                    <img alt="X" src="../static/task-removed.svg" style="margin-left: -10px; margin-bottom: -1px;" width="22" height="22">
-                </button>
+                <div style="display: inline;">
+                    <input type="image" src="../static/task-checked.svg" name="check_button" alt="not done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
+                    <button type="submit" class="task_remove_button stay-normal" name="task_remove_button" id="{{task.index}}" value= "X" style="padding: 0; outline: none; border: 0px; background-color: #f5f5f5;">
+                        <img alt="X" src="../static/task-removed.svg" width="22" height="22">
+                    </button>
+                </div>
             {% else %}
                 <span style="color: #212529;">
-                    <p style="display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all;" onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" onclick="toggle_remove_button('{{task.index}}');">
+                    <p style="display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all;" onclick="toggle_remove_button('{{task.index}}');">
                         {{task.name}} 
                     </p>
                     <p style="display: inline; font-weight: bold; font-family: Courier New; font-size: 1rem;" id="{{task.index + 'dots'}}"> 
                         <script>
                             // computing number of dots needed
                             var widthofForm = $("#formforTasks").width();
-                            // 11 for square, 45 for icons and 2*9.6 for two white spaces (Courier New default size)
+                            // 50 for icons and 2*9.6 for two white spaces (Courier New default size)
                             var row_limit = Math.floor(widthofForm/ 9.6);   //characters which fit in one row
-                            var char_limit = Math.floor((widthofForm - 44.3834 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
+                            var char_limit = Math.floor((widthofForm - 50.3833 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
                             var len_name = '{{task.name}}'.length;
                             var num_rows = Math.floor(len_name / row_limit);
                             var p_elem = document.getElementById("{{task.index + 'dots'}}");
@@ -107,10 +109,12 @@
                         </script> 
                     </p>
                 </span>
-                <input type="image" src="../static/task-unchecked.svg" name="check_button" alt="done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
-                <button type="submit" class="task_remove_button" name="task_remove_button" id="{{task.index}}" value= "X" style="outline: none; border: 0px; background-color: #f5f5f5; width: 15px;">
-                    <img alt="X" src="../static/task-removed.svg" style="margin-left: -10px; margin-bottom: -1px;" width="22" height="22">
-                </button>
+                <div style="display: inline;">
+                    <input type="image" src="../static/task-unchecked.svg" name="check_button" alt="done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
+                    <button type="submit" class="task_remove_button stay-normal" name="task_remove_button" id="{{task.index}}" value= "X" style="padding: 0; outline: none; border: 0px; background-color: #f5f5f5;">
+                        <img alt="X" src="../static/task-removed.svg" width="22" height="22">
+                    </button>
+                </div>
             {% endif %}
         </form>
     </li>
