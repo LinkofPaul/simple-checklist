@@ -91,7 +91,7 @@ $(document).on('keyup', '#search_text_id', function(event){
             pass_div = document.createElement("div");
             pass_div.setAttribute('id', data.names_concat[i]);
             pass_div.setAttribute('class', "input-group input-group-sm");
-            pass_div.setAttribute('style', "display:none");
+            pass_div.setAttribute('style', "display:none; width: 93%;");
             passAtt = "passIdfor" + data.names_concat[i]
             pass_div.innerHTML = `<input class="form-control" type="password" id="`
                                     + passAtt + `" name="password" placeholder="Password" maxlength="256">`

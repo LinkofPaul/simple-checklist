@@ -4,7 +4,7 @@
 <div class="text-center checklist-class">
     <h2 class="display-4 mb-4"><a href={{ url_for("index") }} style="cursor: pointer; text-decoration: none; color: black">Simple Checklist</a></h2>
     <p class="lead mb-2" style="text-align: left; font-size: 1.5rem; word-break: break-all;">{{name}}</p>
-    <div class="progress mb-2" style="width: 90%; height: 10px;">
+    <div class="progress mb-2" style="width: 95%; height: 10px;">
         <div class="progress-bar bg-success" role="progressbar" style="width: {{percentage}}" aria-valuenow="{{percent_num}}" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
     <ul style="margin-left: -25px; list-style-type: square; color: #004B62">
@@ -25,7 +25,7 @@
                             var widthofForm = $("#formforTasks").width();
                             // 50 for icons and 2*9.6 for two white spaces (Courier New default size)
                             var row_limit = Math.floor(widthofForm/ 9.6);   //characters which fit in one row
-                            var char_limit = Math.floor((widthofForm - 50.3833 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
+                            var char_limit = Math.floor((widthofForm - 54.3834 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
                             var len_name = '{{task.name}}'.length;
                             var num_rows = Math.floor(len_name / row_limit);
                             var p_elem = document.getElementById("{{task.index + 'dots'}}");
@@ -60,7 +60,7 @@
                     </p>
                 </span>
                 <div style="display: inline;">
-                    <input type="image" src="../static/task-checked.svg" name="check_button" alt="not done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
+                    <input type="image" src="../static/task-checked.svg" name="check_button" alt="not done" width="32" height="32" style="outline: none; margin-left: -4px; margin-bottom: -12px;">
                     <button type="submit" class="task_remove_button stay-normal" name="task_remove_button" id="{{task.index}}" value= "X" style="padding: 0; outline: none; border: 0px; background-color: #f5f5f5;">
                         <img alt="X" src="../static/task-removed.svg" width="22" height="22">
                     </button>
@@ -76,7 +76,7 @@
                             var widthofForm = $("#formforTasks").width();
                             // 50 for icons and 2*9.6 for two white spaces (Courier New default size)
                             var row_limit = Math.floor(widthofForm/ 9.6);   //characters which fit in one row
-                            var char_limit = Math.floor((widthofForm - 50.3833 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
+                            var char_limit = Math.floor((widthofForm - 54.3834 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
                             var len_name = '{{task.name}}'.length;
                             var num_rows = Math.floor(len_name / row_limit);
                             var p_elem = document.getElementById("{{task.index + 'dots'}}");
@@ -111,7 +111,7 @@
                     </p>
                 </span>
                 <div style="display: inline;">
-                    <input type="image" src="../static/task-unchecked.svg" name="check_button" alt="done" width="28" height="28" style="outline: none; margin-left: -4px; margin-bottom: -10px;">
+                    <input type="image" src="../static/task-unchecked.svg" name="check_button" alt="done" width="32" height="32" style="outline: none; margin-left: -4px; margin-bottom: -12px;">
                     <button type="submit" class="task_remove_button stay-normal" name="task_remove_button" id="{{task.index}}" value= "X" style="padding: 0; outline: none; border: 0px; background-color: #f5f5f5;">
                         <img alt="X" src="../static/task-removed.svg" width="22" height="22">
                     </button>
@@ -123,7 +123,7 @@
     </ul>
     <form action="/checklist/add_task" method="post" id="createTaskForm" style="text-align: left;">
         <input type="hidden" name="name" value="{{name}}" id="checklistforTaskId">
-        <div class="input-group">
+        <div class="input-group" style="width: 95%;">
             <input type="text" class="form-control mt-2" name="newTask" maxlength="150" id="newTaskId" placeholder="Task" required>
             <div class="input-group-append">
                 <button type="submit" class="btn btn-outline-secondary mt-2">add</button>
