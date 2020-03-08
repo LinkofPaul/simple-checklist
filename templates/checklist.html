@@ -9,13 +9,14 @@
     </div>
     <ul style="margin-left: -25px; list-style-type: square; color: #004B62">
     {% for task in tasks %}
-    <li style="text-align: left;" class="mb-1" onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" >
+    <!-- <li style="text-align: left;" class="mb-1" onmouseover="show_remove_button('{{task.index}}');" onmouseout="hide_remove_button('{{task.index}}');" > -->
+    <li style="text-align: left;" class="mb-1">
         <form action="/checklist/process_task" method="post" id="formforTasks">
             <input type="hidden" value="{{name}}" name="checklist_name">
             <input type="hidden" value="{{task.name}}" name="task_name">
             {% if task.done %} 
                 <span style="color: #212529;">
-                    <p style="text-decoration: line-through; display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all;" onclick="toggle_remove_button('{{task.index}}');">
+                    <p style="text-decoration: line-through; display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all; cursor: pointer;" onclick="toggle_remove_button('{{task.index}}');">
                         {{task.name}}
                     </p> 
                     <p style="display: inline; font-weight: bold; font-family: Courier New; font-size: 1rem;" id="{{task.index + 'dots'}}"> 
@@ -66,7 +67,7 @@
                 </div>
             {% else %}
                 <span style="color: #212529;">
-                    <p style="display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all;" onclick="toggle_remove_button('{{task.index}}');">
+                    <p style="display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all; cursor: pointer;" onclick="toggle_remove_button('{{task.index}}');">
                         {{task.name}} 
                     </p>
                     <p style="display: inline; font-weight: bold; font-family: Courier New; font-size: 1rem;" id="{{task.index + 'dots'}}"> 
