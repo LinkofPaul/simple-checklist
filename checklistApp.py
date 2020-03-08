@@ -48,6 +48,12 @@ def status_Checklist(tasks):
         percentage = int(tasks_done / len(tasks) * 100)
     return str(percentage) + "%"
 
+def put_tasks_in_order(tasks):
+    task_tuples = []
+    for task in tasks:
+        task_tuples.append((task, task.id))
+    return [task_obj for task_obj,task_id in sorted(task_tuples, key=lambda tup: tup[1])]
+
 @app.route('/checklist/<name>')
 def checklist(name):
     if not request.referrer:
@@ -55,7 +61,7 @@ def checklist(name):
     else:
         # load all tasks form Checklist(name) into variable tasks
         checklist = Checklist.query.filter_by(name=name).first()
-        tasks = checklist.tasks
+        tasks = put_tasks_in_order(checklist.tasks)
         percentage = status_Checklist(checklist.tasks)
         return render_template("checklist.html", title="%s - Checklist" %(name), name=name, tasks=tasks, percentage=percentage, percent_num=percentage[ :-1])
 
