@@ -16,10 +16,10 @@
             <input type="hidden" value="{{task.name}}" name="task_name">
             {% if task.done %} 
                 <span style="color: #212529;">
-                    <p style="text-decoration: line-through; display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all; cursor: pointer;" onclick="toggle_remove_button('{{task.index}}');">
+                    <p style="text-decoration: line-through; display: inline; font-family: Courier New, Droid Sans Mono, Courier, monospace; font-size: 1rem; word-break: break-all; cursor: pointer;" onclick="toggle_remove_button('{{task.index}}');">
                         {{task.name}}
                     </p> 
-                    <p style="display: inline; font-weight: bold; font-family: Courier New; font-size: 1rem;" id="{{task.index + 'dots'}}"> 
+                    <p style="display: inline; font-weight: bold; font-family: Courier New, Droid Sans Mono, Courier, monospace; font-size: 1rem;" id="{{task.index + 'dots'}}"> 
                         <script>
                             // computing number of dots needed
                             var widthofForm = $("#formforTasks").width();
@@ -67,10 +67,10 @@
                 </div>
             {% else %}
                 <span style="color: #212529;">
-                    <p style="display: inline; font-family: Courier New; font-size: 1rem; word-break: break-all; cursor: pointer;" onclick="toggle_remove_button('{{task.index}}');">
+                    <p style="display: inline; font-family: Courier New, Droid Sans Mono, Courier, monospace; font-size: 1rem; word-break: break-all; cursor: pointer;" onclick="toggle_remove_button('{{task.index}}');">
                         {{task.name}} 
                     </p>
-                    <p style="display: inline; font-weight: bold; font-family: Courier New; font-size: 1rem;" id="{{task.index + 'dots'}}"> 
+                    <p style="display: inline; font-weight: bold; font-family: Courier New, Droid Sans Mono, Courier, monospace; font-size: 1rem;" id="{{task.index + 'dots'}}"> 
                         <script>
                             // computing number of dots needed
                             var widthofForm = $("#formforTasks").width();
