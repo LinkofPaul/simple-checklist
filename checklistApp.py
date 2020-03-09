@@ -4,8 +4,10 @@ import click
 from passlib.hash import sha256_crypt
 import os
 from dotenv import load_dotenv
+from flask_talisman import Talisman
 
 app = Flask(__name__)
+Talisman(app)
 
 load_dotenv('.env')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
