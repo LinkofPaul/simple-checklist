@@ -23,10 +23,11 @@
                         <script>
                             var p_elem = document.getElementById("{{task.index + 'dots'}}");
                             // computing number of dots needed
+                            var widthofForm_btn = $("#formforTasks").width() - 10;
                             var widthofForm = $("#formforTasks").width();
                             // 54 for icons and 2*9.6 for two white spaces (Courier New default size)
                             var row_limit = Math.floor(widthofForm/ 9.6);   //characters which fit in one row
-                            var char_limit = Math.floor((widthofForm - 54.3834 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
+                            var char_limit = Math.floor((widthofForm_btn - 54.3834 - 9.6) / 9.6);   //characters who fit in one row with check-buttons
                             var len_name = '{{task.name}}'.length;
                             var num_rows = Math.floor(len_name / row_limit);
                             for(let n = 1; n <= num_rows; n++){
@@ -59,9 +60,10 @@
                             $(window).resize(function() {
                                 var p_elem = document.getElementById("{{task.index + 'dots'}}");
                                 p_elem.style.marginRight = "5.2167px";
+                                var widthofForm_btn = $("#formforTasks").width() - 10;
                                 var widthofForm = $("#formforTasks").width();
                                 var row_limit = Math.floor(widthofForm/ 9.6);
-                                var char_limit = Math.floor((widthofForm - 54.3834 - 9.6) / 9.6); 
+                                var char_limit = Math.floor((widthofForm_btn - 54.3834 - 9.6) / 9.6); 
                                 var len_name = '{{task.name}}'.length;
                                 var num_rows = Math.floor(len_name / row_limit);
                                 for(let n = 1; n <= num_rows; n++){
@@ -110,9 +112,9 @@
                     </p>
                     <p style="display: inline; font-weight: bold; font-family: Courier New, Droid Sans Mono, Courier, monospace; font-size: 1rem;" id="{{task.index + 'dots'}}"> 
                         <script>
-                            var p_elem=document.getElementById("{{task.index + 'dots'}}"),widthofForm=$("#formforTasks").width(),row_limit=Math.floor(widthofForm/9.6),char_limit=Math.floor((widthofForm-54.3834-9.6)/9.6),len_name="{{task.name}}".length,num_rows=Math.floor(len_name/row_limit);for(let m=1;m<=num_rows;m++)" "==="{{task.name}}"[m*row_limit]&&(len_name-=1);len_name%row_limit==0&&(num_rows-=1);var len_dots=0;len_name%row_limit==0?len_dots=char_limit:len_name===char_limit+row_limit*num_rows?len_dots=0:char_limit-1+row_limit*num_rows-len_name==0?p_elem.style.marginRight="9.6px":len_name<char_limit+row_limit*num_rows?len_dots=char_limit-1+row_limit*num_rows-len_name:len_name<row_limit+row_limit*num_rows&&(len_dots=row_limit+row_limit*num_rows-len_name-1+char_limit);var dots="";for(let m=0;m<len_dots;m++)dots+="<wbr>.";len_dots>0&&(p_elem.innerHTML=dots+"<wbr>");
+                            var p_elem=document.getElementById("{{task.index + 'dots'}}"),widthofForm_btn=$("#formforTasks").width()-10,widthofForm=$("#formforTasks").width(),row_limit=Math.floor(widthofForm/9.6),char_limit=Math.floor((widthofForm_btn-54.3834-9.6)/9.6),len_name="{{task.name}}".length,num_rows=Math.floor(len_name/row_limit);for(let m=1;m<=num_rows;m++)" "==="{{task.name}}"[m*row_limit]&&(len_name-=1);len_name%row_limit==0&&(num_rows-=1);var len_dots=0;len_name%row_limit==0?len_dots=char_limit:len_name===char_limit+row_limit*num_rows?len_dots=0:char_limit-1+row_limit*num_rows-len_name==0?p_elem.style.marginRight="9.6px":len_name<char_limit+row_limit*num_rows?len_dots=char_limit-1+row_limit*num_rows-len_name:len_name<row_limit+row_limit*num_rows&&(len_dots=row_limit+row_limit*num_rows-len_name-1+char_limit);var dots="";for(let m=0;m<len_dots;m++)dots+="<wbr>.";len_dots>0&&(p_elem.innerHTML=dots+"<wbr>");
                             $(window).resize(function() {
-                                var p_elem=document.getElementById("{{task.index + 'dots'}}");p_elem.style.marginRight="5.2167px";var widthofForm=$("#formforTasks").width(),row_limit=Math.floor(widthofForm/9.6),char_limit=Math.floor((widthofForm-54.3834-9.6)/9.6),len_name="{{task.name}}".length,num_rows=Math.floor(len_name/row_limit);for(let m=1;m<=num_rows;m++)" "==="{{task.name}}"[m*row_limit]&&(len_name-=1);len_name%row_limit==0&&(num_rows-=1);var len_dots=0;len_name%row_limit==0?len_dots=char_limit:len_name===char_limit+row_limit*num_rows?p_elem.style.marginRight="0px":char_limit-1+row_limit*num_rows-len_name==0?p_elem.style.marginRight="9.6px":len_name<char_limit+row_limit*num_rows?len_dots=char_limit-1+row_limit*num_rows-len_name:len_name<row_limit+row_limit*num_rows&&(len_dots=row_limit+row_limit*num_rows-len_name-1+char_limit);var dots="";for(let m=0;m<len_dots;m++)dots+="<wbr>.";p_elem.innerHTML=len_dots>0?dots+"<wbr>":"";
+                                var p_elem=document.getElementById("{{task.index + 'dots'}}");p_elem.style.marginRight="5.2167px";var widthofForm_btn=$("#formforTasks").width()-10,widthofForm=$("#formforTasks").width(),row_limit=Math.floor(widthofForm/9.6),char_limit=Math.floor((widthofForm_btn-54.3834-9.6)/9.6),len_name="{{task.name}}".length,num_rows=Math.floor(len_name/row_limit);for(let m=1;m<=num_rows;m++)" "==="{{task.name}}"[m*row_limit]&&(len_name-=1);len_name%row_limit==0&&(num_rows-=1);var len_dots=0;len_name%row_limit==0?len_dots=char_limit:len_name===char_limit+row_limit*num_rows?p_elem.style.marginRight="0px":char_limit-1+row_limit*num_rows-len_name==0?p_elem.style.marginRight="9.6px":len_name<char_limit+row_limit*num_rows?len_dots=char_limit-1+row_limit*num_rows-len_name:len_name<row_limit+row_limit*num_rows&&(len_dots=row_limit+row_limit*num_rows-len_name-1+char_limit);var dots="";for(let m=0;m<len_dots;m++)dots+="<wbr>.";p_elem.innerHTML=len_dots>0?dots+"<wbr>":"";
                             });  
                         </script> 
                     </p>
