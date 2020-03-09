@@ -4,10 +4,8 @@ import click
 from passlib.hash import sha256_crypt
 import os
 from dotenv import load_dotenv
-from flask_talisman import Talisman
 
 app = Flask(__name__)
-Talisman(app)
 
 load_dotenv('.env')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -154,6 +152,13 @@ def login():
     else:
         return jsonify(error=True)
 
+@app.before_request
+def before_request():
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
+        
 @app.cli.command('create_db')
 def create_db():
 	db.create_all()
