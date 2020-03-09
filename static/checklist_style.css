@@ -41,6 +41,10 @@ body {
   appearance: none;
 }
 
+.progress {
+  border: 1px solid #004B62;
+}
+
 @media (max-width: 950px) {
   .break-index-list {
     margin-right: 0px;

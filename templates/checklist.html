@@ -4,7 +4,7 @@
 <div class="text-center checklist-class">
     <h2 class="display-4 mb-4"><a href={{ url_for("index") }} style="cursor: pointer; text-decoration: none; color: black">Simple Checklist</a></h2>
     <p class="lead mb-2" style="text-align: left; font-size: 1.5rem; word-break: break-all;">{{name}}</p>
-    <div class="progress mb-2" style="width: 95%; height: 10px;">
+    <div class="progress mb-2" style="width: 94%; height: 10px;">
         <div class="progress-bar bg-success" role="progressbar" style="width: {{percentage}}" aria-valuenow="{{percent_num}}" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
     <ul style="margin-left: -25px; list-style-type: square; color: #004B62">
@@ -132,7 +132,7 @@
     </ul>
     <form action="/checklist/add_task" method="post" id="createTaskForm" style="text-align: left;">
         <input type="hidden" name="name" value="{{name}}" id="checklistforTaskId">
-        <div class="input-group" style="width: 95%;">
+        <div class="input-group" style="width: 94%;">
             <input type="text" class="form-control mt-2" name="newTask" maxlength="150" id="newTaskId" placeholder="Task" required>
             <div class="input-group-append">
                 <button type="submit" class="btn btn-outline-secondary mt-2">add</button>

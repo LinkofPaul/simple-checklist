@@ -85,13 +85,13 @@ $(document).on('keyup', '#search_text_id', function(event){
             name_div.setAttribute('onclick', hide_func);
             name_div.setAttribute('style', "cursor:pointer");
             //var dot = String.fromCharCode(8226);
-            name_div.innerHTML = '<h5 class="lead break-index-list" style="font-weight: 450; color: #212529;">' + data.names[i] + '</h5>'
+            name_div.innerHTML = '<h5 class="lead break-index-list" style="color: #212529;">' + data.names[i] + '</h5>'
             listForm.appendChild(name_div)
 
             pass_div = document.createElement("div");
             pass_div.setAttribute('id', data.names_concat[i]);
             pass_div.setAttribute('class', "input-group input-group-sm");
-            pass_div.setAttribute('style', "display:none; width: 93%;");
+            pass_div.setAttribute('style', "display:none; width: 80%;");
             passAtt = "passIdfor" + data.names_concat[i]
             pass_div.innerHTML = `<input class="form-control" type="password" id="`
                                     + passAtt + `" name="password" placeholder="Password" maxlength="256">`
