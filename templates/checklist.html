@@ -133,7 +133,7 @@
     <form action="/checklist/add_task" method="post" id="createTaskForm" style="text-align: left;">
         <input type="hidden" name="name" value="{{name}}" id="checklistforTaskId">
         <div class="input-group" style="width: 94%;">
-            <input type="text" class="form-control mt-2" name="newTask" maxlength="150" id="newTaskId" placeholder="Task" required>
+            <input type="text" class="form-control mt-2" style="border-color: rgb(206, 212, 218); box-shadow: none;" name="newTask" maxlength="150" id="newTaskId" placeholder="Task" required="" autofocus="">
             <div class="input-group-append">
                 <button type="submit" class="btn btn-outline-secondary mt-2">add</button>
             </div>

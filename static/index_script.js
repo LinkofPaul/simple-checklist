@@ -105,7 +105,7 @@ $(document).on('keyup', '#search_text_id', function(event){
             wrongpass_div = document.createElement("div");
             errorLoginDiv = "errorLoginDivfor" + data.names_concat[i]
             wrongpass_div.setAttribute('id', errorLoginDiv)
-            wrongpass_div.setAttribute('style', "display: none; color:red; text-align: center;")
+            wrongpass_div.setAttribute('style', "display: none; color:red; padding-left: 5px")
             wrongpass_div.innerHTML = "Wrong password"
             listForm.append(wrongpass_div)
         }
