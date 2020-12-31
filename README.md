@@ -4,4 +4,4 @@
 
 Create and manage Checklists easily online. Whether on the smartphone or desktop.
 
-Website: <https://www.simple-checklist.net>
+Website: <http://www.simple-checklist.net>
