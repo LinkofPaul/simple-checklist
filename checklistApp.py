@@ -158,6 +158,14 @@ def login():
 #         url = request.url.replace('http://', 'https://', 1)
 #         code = 301
 #         return redirect(url, code=code)
+
+# use http as long as no certificate available
+@app.before_request
+def before_request():
+    if request.url.startswith('https://'):
+        url = request.url.replace('https://', 'http://', 1)
+        code = 301
+        return redirect(url, code=code)
         
 @app.cli.command('create_db')
 def create_db():
