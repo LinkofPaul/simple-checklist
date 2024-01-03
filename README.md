@@ -4,4 +4,4 @@
 
 Create and manage Checklists easily online. Whether on the smartphone or desktop.
 
-Website: <http://www.simple-checklist.net>
+Website: <https://simple-checklist-gsu4.onrender.com>
